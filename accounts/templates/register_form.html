@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="user-form">
+        <form method="POST" onsubmit="accounts/login/">
+            {% csrf_token %}
+            <h1>Register</h1>
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" placeholder="Max" maxlength=50 required autofocus>
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" placeholder="Payne" maxlength=50>
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Max.payne" maxlength=50>
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="you@gmail.com" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" maxlength=50 required>
+            <div style="display:flex; justify-content:space-between;">
+                <input type="submit" value="Register">
+                <a href="/accounts/login/"><input type="button" value="Login"></a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

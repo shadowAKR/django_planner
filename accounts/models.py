@@ -10,6 +10,5 @@ class Teams(GenericFields):
 
 
 class User(AbstractUser, GenericFields):
-    team = models.ForeignKey(Teams, on_delete=models.CASCADE)
-    designation = models.CharField(max_length=250)
-
+    team = models.ForeignKey(Teams, on_delete=models.CASCADE, blank=True, null=True)
+    designation = models.CharField(max_length=250, blank=True, null=True)

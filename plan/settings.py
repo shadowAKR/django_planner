@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
     # apps
     "accounts",
     "management",
     "safe_delete",
     "tasks",
+    "comments",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +61,7 @@ ROOT_URLCONF = "plan.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates'),],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -135,3 +135,59 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+LOGGER_FILE_PATH = "./logs/app.log"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "default": {
+            "format": "%(asctime)s [%(levelname)s] %(name)s %(thread)d %(filename)s %(funcName)s %(lineno)d: %(message)s",
+            "datefmt": "%a, %d %b %Y %H:%M:%S %z",
+        },
+    },
+    "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "file": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "when": "midnight",
+            "filename": LOGGER_FILE_PATH,
+            "formatter": "default",
+        },
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "uvicorn.error": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "": {
+            "handlers": ["file"],
+            "level": "INFO",
+            # 'propagate': True,
+            "propagate": False,
+        },
+        'daphne': {
+            'handlers': [
+                'console',
+            ],
+            'level': 'DEBUG'
+        },
+    },
+}

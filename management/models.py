@@ -22,3 +22,10 @@ class GenericFields(SoftDeletionModel):
 
     class Meta:
         abstract = True
+
+class Dropdown(GenericFields):
+    value = models.CharField(max_length=100, db_index=True)
+    color = models.CharField(max_length=10)
+    order = models.PositiveIntegerField(null=True, default=0)
+    model_name = models.CharField(max_length=100)
+    field = models.CharField(max_length=100)
