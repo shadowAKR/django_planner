@@ -1,7 +1,8 @@
 import logging
 from django.shortcuts import render, redirect
-from django.contrib import auth, messages
-from django.views.generic import View, TemplateView
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.views.generic import TemplateView
 from .models import User
 
 logger = logging.getLogger("__name__")
@@ -15,8 +16,12 @@ class LoginView(TemplateView):
     def post(self, request):
         email = request.POST.get("email")
         password = request.POST.get("password")
-        if User.objects.filter(email=email, password=password).exists():
+        user = authenticate(request=request, email=email, password=password)
+        print(user)
+        if user:
+            login(request, user)
             return redirect("/")
+        messages.warning(request, "Invalid credentials!")
         return render(request, template_name="login_form.html")
 
 
@@ -36,7 +41,6 @@ class RegisterView(TemplateView):
             first_name = request.POST.get("first_name")
             last_name = request.POST.get("last_name")
             username = request.POST.get("username")
-            logger.info(username)
             if User.objects.filter(username=username).exists():
                 messages.info(request, "A user with same username already exists!")
                 return redirect("/accounts/register/")

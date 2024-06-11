@@ -164,6 +164,6 @@ cython_debug/
 
 .vscode/
 .idea/
-static/
+static_files/
 media/
 logs/

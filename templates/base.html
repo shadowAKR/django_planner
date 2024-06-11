@@ -13,7 +13,7 @@
         <div class="toast-container">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="toast">
+                    <div class="toast {{ message.tags }}">
                         {{ message }}
                     </div>
                 {% endfor %}
