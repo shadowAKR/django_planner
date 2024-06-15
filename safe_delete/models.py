@@ -11,7 +11,7 @@ class SoftDeletionModel(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_deleted",
-        null=True,
+        null=True, blank=True
     )
 
     objects = SoftDeletionManager()

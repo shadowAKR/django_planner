@@ -1,62 +1,42 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
+    color: #adc1d4;
 }
 
 html, body {
     height: 100%;
     margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
 }
 
-.user-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    min-width: 20rem;
-    min-height: 20rem;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-form h1 {
-    justify-self: center;
-}
-
-label, input {
-    margin-bottom: 10px;
-    min-width: 18em;
-}
-
-input {
-    border-color: gray;
-    border-radius: 4px;
-    border-width: 1px;
-    min-height: 2em;
-}
-
-input[type="submit"], input[type="button"] {
-    min-width: 7em;
-    align-self: flex-start;
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
+.normal-button {
+    background-color: #5b21b6;
     color: white;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    align-items: end;
+}
+.normal-button:hover{
+    background-color: #4d1c9c;
     cursor: pointer;
-    border-radius: 4px;
 }
 
-input[type="submit"]:hover, input[type="button"]:hover {
-    background-color: #0056b3;
+.logout-button {
+    background-color: #243246;
+    color: #9cc6c7;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    align-items: end;
+}
+.logout-button:hover{
+    background-color: #1e2b3b;
+    cursor: pointer;
 }
 
  /* toaster */

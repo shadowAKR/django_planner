@@ -1,0 +1,112 @@
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #0f172a;
+}
+
+.left-side-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: #141e33;
+    align-items: center;
+    height: 100vh;
+    min-width: 15%;
+}
+
+.right-side-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: #141e33;
+    height: 100vh;
+    min-width: 15%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
+.nav-list ul {
+    padding: 0%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 100%;
+}
+
+.nav-list li {
+    text-align: start;
+    padding: 1.5vh;
+}
+.nav-list li:hover {
+    background-color: #202d44;
+}
+.nav-list a {
+    text-decoration: none;
+}
+
+
+/* main frame */
+.main-frame {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    width: 100%;
+    padding: 20px 30px 10px 30px;
+}
+.main-frame-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 3vh;
+}
+.search-box, .plan-selector select {
+    background-color: #1d293d;
+    color: aliceblue;
+    width: 10vw;
+    height: 3vh;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+}
+.task-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+.task {
+    background-color: #5b21b6;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30vh;
+}
+.task .date-range {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.task .date-range-status {
+    display: flex;
+    flex-direction: column;
+}
+.task .status-options {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px dashed #7650b3;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.task .task-actions i {
+    padding-left: 10px;
+}

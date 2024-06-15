@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'accounts-style.css' %}">
+{% endblock %}
+
 {% block body %}
     <div class="user-form">
         <form method="POST" onsubmit="accounts/login/">

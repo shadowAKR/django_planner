@@ -1,8 +1,8 @@
 import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.views.generic import TemplateView
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import TemplateView, View
 from .models import User
 
 logger = logging.getLogger("__name__")
@@ -17,7 +17,6 @@ class LoginView(TemplateView):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(request=request, email=email, password=password)
-        print(user)
         if user:
             login(request, user)
             return redirect("/")
@@ -61,3 +60,9 @@ class RegisterView(TemplateView):
         except Exception as error:
             print(f"Error while registering user: {error}")
             return redirect("/accounts/register/")
+
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect("login-view")

@@ -1,4 +1,110 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'tasks-style.css' %}">
+{% endblock %}
+
 {% block body %}
-    <h1>Home</h1>
+    <div class="left-side-bar">
+        <h1>Planner</h1>
+        <button class="normal-button">Add new task</button>
+        <nav class="nav-list">
+            <ul style="list-style-type: none;">
+                <a href="{% url "tasks" %}?task_type=ongoing_tasks">
+                    <li style="{% if task_type == "Ongoing tasks" %}background-color:#202d44{% endif %}">
+                        Ongoing tasks
+                    </li>
+                </a>
+                <a href="{% url "tasks" %}">
+                    <li style="{% if task_type == "All tasks" %}background-color:#202d44{% endif %}">
+                        All tasks
+                    </li>
+                </a>
+                <a href="{% url "tasks" %}?task_type=important_tasks">
+                    <li style="{% if task_type == "Important tasks" %}background-color:#202d44{% endif %}">
+                        Important tasks
+                    </li>
+                </a>
+                <a href="{% url "tasks" %}?task_type=completed_tasks">
+                    <li style="{% if task_type == "Completed tasks" %}background-color:#202d44{% endif %}">
+                        Completed tasks
+                    </li>
+                </a>
+                <a href="{% url "tasks" %}?task_type=uncompleted_tasks">
+                    <li style="{% if task_type == "Uncompleted tasks" %}background-color:#202d44{% endif %}">
+                        Uncompleted tasks
+                    </li>
+                </a>
+                <a href="{% url "tasks" %}">
+                    <li style="{% if task_type == "All plans" %}background-color:#202d44{% endif %}">
+                        All plans
+                    </li>
+                </a>
+            </ul>
+        </nav>
+    </div>
+    <div class="main-frame">
+        <div class="main-frame-top">
+            <input class="search-box" type="text" name="search" placeholder="Search task">
+            <div class="plan-selector">
+                <label for="plan">Plan | </label>
+                <select ID="plan-dropdown" name="plan">
+                    {% for plan in plans_dropdown%}
+                        <option value="{% url "plan-tasks" plan.object_id %}" {% if loop.first %}selected{% endif %}>
+                            {{ plan.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <h3>{{ task_type }}</h3>
+        <div class="view-types">
+        </div>
+        <div class="task-list">
+            {% for task in tasks %}
+                <div class="task">
+                    <div class="title-description">
+                        <h4>{{ task.title }}</h4>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div class="date-range-status">
+                        <div class="date-range">
+                            <p><i class="fa-solid fa-calendar-days"></i> {% if task.start_date %}{{ task.start_date.date }}{% else %}-{% endif %}</p>
+                            <p><i class="fa-solid fa-calendar-days"></i> {% if task.end_date %}{{ task.end_date.date }}{% else %}-{% endif %}</p>
+                        </div>
+                        <div class="status-options">
+                            <p style="background-color:{{ task.status.color }};border-radius:20px;color:black;padding:5px;">{% if task.status %}{{ task.status.value }}{% else %}-{% endif %}</p>
+                            <div class="task-actions">
+                                <i class="fa-regular fa-star" style="color:{{task.priority.color}};"></i>
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="right-side-bar">
+        <div class="user-section">
+            <h4>Hi, {{ user.first_name }} {{ user.last_name }}!</h4>
+        </div>
+        <div class="task-status">
+            
+        </div>
+        <button class="logout-button"><a href="{% url "logout-view" %}">Logout</a></button>
+    </div>
+
+    {% comment %} scripts {% endcomment %}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const planDropdown = document.getElementById('plan-dropdown');
+            
+            planDropdown.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const url = selectedOption.value;
+                window.location.href = url;
+            });
+        });
+    </script>
 {% endblock %}
