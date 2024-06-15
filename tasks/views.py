@@ -62,6 +62,7 @@ class TaskView(TemplateView):
         all_plans_list.insert(0, plan_obj)
         context["plans_dropdown"] = all_plans_list
         context["tasks"] = Tasks.objects.only("id","object_id").filter(**filters).order_by("-modified_date")
+        context["plan_object_id"] = plan_object_id
 
         context["user"] = self.request.user
         return context

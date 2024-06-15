@@ -11,32 +11,32 @@
         <button class="normal-button">Add new task</button>
         <nav class="nav-list">
             <ul style="list-style-type: none;">
-                <a href="{% url "tasks" %}?task_type=ongoing_tasks">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=ongoing_tasks">
                     <li style="{% if task_type == "Ongoing tasks" %}background-color:#202d44{% endif %}">
                         Ongoing tasks
                     </li>
                 </a>
-                <a href="{% url "tasks" %}">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}">
                     <li style="{% if task_type == "All tasks" %}background-color:#202d44{% endif %}">
                         All tasks
                     </li>
                 </a>
-                <a href="{% url "tasks" %}?task_type=important_tasks">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=important_tasks">
                     <li style="{% if task_type == "Important tasks" %}background-color:#202d44{% endif %}">
                         Important tasks
                     </li>
                 </a>
-                <a href="{% url "tasks" %}?task_type=completed_tasks">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=completed_tasks">
                     <li style="{% if task_type == "Completed tasks" %}background-color:#202d44{% endif %}">
                         Completed tasks
                     </li>
                 </a>
-                <a href="{% url "tasks" %}?task_type=uncompleted_tasks">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=uncompleted_tasks">
                     <li style="{% if task_type == "Uncompleted tasks" %}background-color:#202d44{% endif %}">
                         Uncompleted tasks
                     </li>
                 </a>
-                <a href="{% url "tasks" %}">
+                <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}">
                     <li style="{% if task_type == "All plans" %}background-color:#202d44{% endif %}">
                         All plans
                     </li>
@@ -58,7 +58,7 @@
                 </select>
             </div>
         </div>
-        <h3>{{ task_type }}</h3>
+        <h2>{{ task_type }}</h2>
         <div class="view-types">
         </div>
         <div class="task-list">

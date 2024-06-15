@@ -79,16 +79,38 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #14203b #0f172a;
+}
+.task-list::-webkit-scrollbar {
+    width: 10px;
+}
+.task-list::-webkit-scrollbar-thumb {
+    background: #14203b;
+    border-radius: 10px;
+    border: 3px solid #0f172a;
+}
+.task-list::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 10px;
+}
+.task-list::-webkit-scrollbar-thumb:hover {
+    background: #14203b;
 }
 .task {
     background-color: #5b21b6;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 30vh;
+}
+.task:hover{
+    background-color: #4d1c9c;
+    cursor: pointer;
 }
 .task .date-range {
     display: flex;
