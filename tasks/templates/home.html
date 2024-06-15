@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block titile %}{% if plans_dropdown %}{{plans_dropdown.0.title}} | {% endif %}{{task_type}}{% endblock %}
+
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'tasks-style.css' %}">
 {% endblock %}
@@ -97,6 +99,7 @@
 
     {% comment %} scripts {% endcomment %}
     <script>
+        /* for plan selector dropdown */
         document.addEventListener('DOMContentLoaded', (event) => {
             const planDropdown = document.getElementById('plan-dropdown');
             
