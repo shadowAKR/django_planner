@@ -49,7 +49,7 @@
     <div class="main-frame">
         <div class="main-frame-top">
             <div style="display:inline-block;">
-                <input class="search-box" style="padding-right:22px;" type="text" name="search" placeholder="Search task">
+                <input id="search-box" class="search-box" style="padding-right:22px;" type="text" name="search" placeholder="Search task">
                 <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
             </div>
             <div class="plan-selector">
@@ -66,7 +66,7 @@
         <h2>{{ task_type }}</h2>
         <div class="view-types">
         </div>
-        <div class="task-list">
+        <div class="task-list" id="task-list">
             {% for task in tasks %}
                 <div class="task">
                     <div class="title-description">
@@ -110,6 +110,23 @@
                 const selectedOption = this.options[this.selectedIndex];
                 const url = selectedOption.value;
                 window.location.href = url;
+            });
+
+            const searchBox = document.getElementById('search-box');
+            const taskList = document.getElementById('task-list');
+            const tasks = Array.from(taskList.getElementsByClassName('task'));
+
+            searchBox.addEventListener('input', function() {
+                const searchTerm = searchBox.value.toLowerCase();
+                tasks.forEach(task => {
+                    const title = task.querySelector('.title-description h4').textContent.toLowerCase();
+                    const description = task.querySelector('.title-description p').textContent.toLowerCase();
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        task.style.display = 'flex';
+                    } else {
+                        task.style.display = 'none';
+                    }
+                });
             });
         });
     </script>
