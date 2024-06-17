@@ -89,7 +89,7 @@ class TaskCreateView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         if self.request.GET.get("plan_object_id"):
-            plan = Plan.objects.only("id").get(
+            plan = Plan.objects.only("id", "title").get(
                 object_id=self.request.GET.get("plan_object_id")
             )
             context["plan"] = plan
