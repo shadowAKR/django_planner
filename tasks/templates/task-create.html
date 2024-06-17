@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titile %}Add task{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'create-tasks-style.css' %}">    
+{% endblock %}
+
+{% block body %}
+    <div class="task-create-form">
+        <form method="POST" onsubmit="create-task/{% if plan_object_id %}?plan_object_id={{ plan_object_id }}{% endif %}">
+            {% csrf_token %}
+            <h2>Add new task</h2>
+            <div class="group">
+                <div class="element">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" placeholder="Sample task" required autofocus>
+                </div>
+            </div>
+            <div class="group">
+                <div class="element">
+                    <label for="description">Description</label>
+                    <textarea name="description" rows="4" cols="50" placeholder="Task description..."></textarea>
+                </div>
+            </div>
+            <div class="group">
+                <div class="element">
+                    <label for="plan">Plan</label>
+                    <select class="dropdown" name="plan">
+                        {% for plan in plans%}
+                            <option value="{{ plan.id }}" {% if loop.first %}selected{% endif %}>
+                                {{ plan.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="element">
+                    <label for="team">Team</label>
+                    <select class="dropdown" name="team">
+                        {% for team in teams%}
+                            <option value="{{ team.id }}" {% if loop.first %}selected{% endif %}>
+                                {{ team.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="group">
+                <div class="element">
+                    <label for="status">Status</label>
+                    <select class="dropdown" name="status">
+                        {% for status in statuses%}
+                            <option value="{{ status.id }}" {% if loop.first %}selected{% endif %}>
+                                {{ status.value }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="element">
+                    <label for="priority">Priority</label>
+                    <select class="dropdown" name="priority">
+                        {% for priority in priorities%}
+                            <option value="{{ priority.id }}" {% if loop.first %}selected{% endif %}>
+                                {{ priority.value }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="group">
+                <div class="element">
+                    <label for="planned_start_date">Planned start date</label>
+                    <input type="date" name="planned_start_date">
+                </div>
+                <div class="element">
+                    <label for="planned_end_date">Planned end date</label>
+                    <input type="date" name="planned_end_date">
+                </div>
+            </div>
+            <div class="group">
+                <div class="element">
+                    <label for="owners">Owners</label>
+                    <select id="owner-dropdown" class="multiple-dropdown" placeholder="Select owners" name="owners" multiple>
+                        {% for owner in owners%}
+                            <option value="{{ owner.id }}">
+                                {{ owner.full_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="element">
+                    <label for="estimated_work_hours">Estimated work hours</label>
+                    <input type="number" name="estimated_work_hours">
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                <a href="{% if plan_object_id %} {% url 'plan-tasks' plan_object_id %} {% else %} {% url 'tasks' %} {% endif %}">
+                    <input style="background-color:red;" type="button" value="Cancel">
+                </a>
+                <input style="background-color:green;" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

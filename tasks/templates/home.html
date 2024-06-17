@@ -10,7 +10,7 @@
 {% block body %}
     <div class="left-side-bar">
         <h1>Planner</h1>
-        <button class="normal-button">Add new task</button>
+        <a class="normal-button" href={% url "task-create" %}{% if plan_object_id %}?plan_object_id={{plan_object_id}}{% endif %}>Add new task</a>
         <nav class="nav-list">
             <ul style="list-style-type: none;">
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=ongoing_tasks">
@@ -48,7 +48,10 @@
     </div>
     <div class="main-frame">
         <div class="main-frame-top">
-            <input class="search-box" type="text" name="search" placeholder="Search task">
+            <div style="display:inline-block;">
+                <input id="search-box" class="search-box" style="padding-right:22px;" type="text" name="search" placeholder="Search task">
+                <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
+            </div>
             <div class="plan-selector">
                 <label for="plan">Plan | </label>
                 <select ID="plan-dropdown" name="plan">
@@ -63,7 +66,7 @@
         <h2>{{ task_type }}</h2>
         <div class="view-types">
         </div>
-        <div class="task-list">
+        <div class="task-list" id="task-list">
             {% for task in tasks %}
                 <div class="task">
                     <div class="title-description">
@@ -107,6 +110,23 @@
                 const selectedOption = this.options[this.selectedIndex];
                 const url = selectedOption.value;
                 window.location.href = url;
+            });
+
+            const searchBox = document.getElementById('search-box');
+            const taskList = document.getElementById('task-list');
+            const tasks = Array.from(taskList.getElementsByClassName('task'));
+
+            searchBox.addEventListener('input', function() {
+                const searchTerm = searchBox.value.toLowerCase();
+                tasks.forEach(task => {
+                    const title = task.querySelector('.title-description h4').textContent.toLowerCase();
+                    const description = task.querySelector('.title-description p').textContent.toLowerCase();
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        task.style.display = 'flex';
+                    } else {
+                        task.style.display = 'none';
+                    }
+                });
             });
         });
     </script>

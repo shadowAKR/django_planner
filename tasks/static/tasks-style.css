@@ -132,3 +132,12 @@ body {
 .task .task-actions i {
     padding-left: 10px;
 }
+
+#search-icon {
+    position: relative;
+    right: 15px;
+    transform: translateX(-50%);
+    align-items: center;
+    pointer-events: none;
+    color: #aaa;
+}

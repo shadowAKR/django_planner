@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from management.models import GenericFields, Dropdown
-from accounts.models import User
+from accounts.models import User, Teams
 from comments.models import Comment
 
 # Create your models here.
@@ -21,10 +21,10 @@ class Plan(GenericFields):
         Dropdown, null=True, blank=True, related_name="%(app_label)s_%(class)s_status",
         on_delete=models.SET_NULL
     )
-    planned_start_date = models.DateTimeField(blank=True, null=True)
-    planned_end_date = models.DateTimeField(blank=True, null=True)
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField(blank=True, null=True)
+    planned_start_date = models.DateField(blank=True, null=True)
+    planned_end_date = models.DateField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     owners = models.ManyToManyField(
         User, blank=True, db_index=True, related_name="%(app_label)s_%(class)s_owners"
     )
@@ -58,6 +58,9 @@ class Tasks(GenericFields):
         Plan, null=True, related_name="%(app_label)s_%(class)s_plan",
         on_delete=models.SET_NULL
     )
+    team = models.ForeignKey(Teams, null=True, related_name="%(app_label)s_%(class)s_team",
+        on_delete=models.SET_NULL
+    )
     status = models.ForeignKey(
         Dropdown, null=True, blank=True, related_name="%(app_label)s_%(class)s_status",
         on_delete=models.SET_NULL
@@ -66,12 +69,12 @@ class Tasks(GenericFields):
         Dropdown, null=True, blank=True, related_name="%(app_label)s_%(class)s_priority",
         on_delete=models.SET_NULL
     )
-    planned_start_date = models.DateTimeField(blank=True, null=True)
-    planned_end_date = models.DateTimeField(blank=True, null=True)
-    estimated_work_hours = models.TimeField(blank=True, null=True)
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField(blank=True, null=True)
-    worked_hours = models.TimeField(blank=True, null=True)
+    planned_start_date = models.DateField(blank=True, null=True)
+    planned_end_date = models.DateField(blank=True, null=True)
+    estimated_work_hours = models.PositiveIntegerField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    worked_hours = models.JSONField(default=dict)
     owners = models.ManyToManyField(
         User, blank=True, db_index=True, related_name="%(app_label)s_%(class)s_owners"
     )
