@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # installed apps
     "fontawesomefree",
+    "django_extensions",
     # apps
     "accounts",
     "management",

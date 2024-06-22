@@ -10,6 +10,8 @@ python = "^3.10"
 django = "4.2.x"
 mysqlclient = "^2.2.4"
 fontawesomefree = "^6.5.1"
+pillow = "^10.3.0"
+django-extensions = "^3.2.3"
 
 
 [build-system]

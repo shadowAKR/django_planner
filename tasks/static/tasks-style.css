@@ -11,7 +11,9 @@ body {
     background-color: #141e33;
     align-items: center;
     height: 100vh;
+    width: 15%;
     min-width: 15%;
+    max-width: 15%;
 }
 
 .right-side-bar {
@@ -19,7 +21,9 @@ body {
     flex-direction: column;
     background-color: #141e33;
     height: 100vh;
+    width: 15%;
     min-width: 15%;
+    max-width: 15%;
     align-items: center;
     justify-content: space-between;
 }
@@ -108,14 +112,11 @@ body {
     justify-content: space-between;
     height: 30vh;
 }
-.task:hover{
-    background-color: #4d1c9c;
-    cursor: pointer;
-}
-.task .date-range {
+.task .date-range, .task .status-priotity {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 5px;
 }
 .task .date-range-status {
     display: flex;
@@ -132,6 +133,10 @@ body {
 .task .task-actions i {
     padding-left: 10px;
 }
+.task .task-owners {
+    display: flex;
+    flex-direction: row;
+}
 
 #search-icon {
     position: relative;
@@ -140,4 +145,37 @@ body {
     align-items: center;
     pointer-events: none;
     color: #aaa;
+}
+
+/* #user-avatar {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+} */
+#user-avatar:hover, #user-close-icon:hover {
+    cursor: pointer;
+}
+
+#user-close-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.user-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:2px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.user-taskstatus-section {
+    width:90%;
+    max-width:100%;
+    border-bottom: 1px dashed #7650b3;
+    padding-bottom:10px;
 }

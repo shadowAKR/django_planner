@@ -9,38 +9,38 @@
 
 {% block body %}
     <div class="left-side-bar">
-        <h1>Planner</h1>
+        <a href="/" style="text-decoration:none;"><h1>Planner</h1><a>
         <a class="normal-button" href={% url "task-create" %}{% if plan_object_id %}?plan_object_id={{plan_object_id}}{% endif %}>Add new task</a>
         <nav class="nav-list">
             <ul style="list-style-type: none;">
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=ongoing_tasks">
                     <li style="{% if task_type == "Ongoing tasks" %}background-color:#202d44{% endif %}">
-                        Ongoing tasks
+                        <i class="fa-regular fa-spinner fa-spin-pulse fa-lg"></i> Ongoing tasks
                     </li>
                 </a>
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}">
                     <li style="{% if task_type == "All tasks" %}background-color:#202d44{% endif %}">
-                        All tasks
+                        <i class="fa-regular fa-globe fa-beat fa-lg"></i> All tasks
                     </li>
                 </a>
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=important_tasks">
                     <li style="{% if task_type == "Important tasks" %}background-color:#202d44{% endif %}">
-                        Important tasks
+                        <i class="fa-regular fa-star fa-shake fa-lg"></i> Important tasks
                     </li>
                 </a>
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=completed_tasks">
                     <li style="{% if task_type == "Completed tasks" %}background-color:#202d44{% endif %}">
-                        Completed tasks
+                        <i class="fa-regular fa-check-double fa-fade fa-lg"></i> Completed tasks
                     </li>
                 </a>
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}?task_type=uncompleted_tasks">
                     <li style="{% if task_type == "Uncompleted tasks" %}background-color:#202d44{% endif %}">
-                        Uncompleted tasks
+                        <i class="fa-regular fa-bars-progress fa-beat-fade fa-lg"></i> Uncompleted tasks
                     </li>
                 </a>
                 <a href="{% if plan_object_id %}{% url "plan-tasks" plan_object_id %}{% else %}{% url "tasks" %}{% endif %}">
                     <li style="{% if task_type == "All plans" %}background-color:#202d44{% endif %}">
-                        All plans
+                        <i class="fa-regular fa-layer-group fa-flip fa-lg"></i> All plans
                     </li>
                 </a>
             </ul>
@@ -52,15 +52,20 @@
                 <input id="search-box" class="search-box" style="padding-right:22px;" type="text" name="search" placeholder="Search task">
                 <i id="search-icon" class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="plan-selector">
-                <label for="plan">Plan | </label>
-                <select ID="plan-dropdown" name="plan">
-                    {% for plan in plans_dropdown%}
-                        <option value="{% url "plan-tasks" plan.object_id %}" {% if loop.first %}selected{% endif %}>
-                            {{ plan.title }}
-                        </option>
-                    {% endfor %}
-                </select>
+            <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;">
+                <div class="plan-selector">
+                    <label for="plan">Plan | </label>
+                    <select ID="plan-dropdown" name="plan">
+                        {% for plan in plans_dropdown%}
+                            <option value="{% url "plan-tasks" plan.object_id %}" {% if loop.first %}selected{% endif %}>
+                                {{ plan.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="user-avatar" style="padding-left:20px;">
+                    <img src="{{ user.profile_pic.url }}" alt="pic" style="width:30px;height:30px;object-fit:cover;border-radius:50%;">
+                </div>
             </div>
         </div>
         <h2>{{ task_type }}</h2>
@@ -74,31 +79,51 @@
                         <p>{{ task.description }}</p>
                     </div>
                     <div class="date-range-status">
+                        <div class="task-owners">
+                            {% for owner in task.owners.all %}
+                                <p style="background-color:#87a583;border-radius:20px;color:black;padding:5px;">{{owner.full_name}}</p>
+                            {% endfor %}
+                        </div>
                         <div class="date-range">
                             <p><i class="fa-solid fa-calendar-days"></i> {% if task.start_date %}{{ task.start_date.date }}{% else %}-{% endif %}</p>
                             <p><i class="fa-solid fa-calendar-days"></i> {% if task.end_date %}{{ task.end_date.date }}{% else %}-{% endif %}</p>
                         </div>
                         <div class="status-options">
-                            <p style="background-color:{{ task.status.color }};border-radius:20px;color:black;padding:5px;">{% if task.status %}{{ task.status.value }}{% else %}-{% endif %}</p>
+                            <div class="status-priotity">
+                                <p style="background-color:{{ task.priority.color }};border-radius:20px;color:black;padding:5px;">{% if task.priority %}{{ task.priority.value }}{% else %}-{% endif %}</p>
+                                <p style="background-color:{{ task.status.color }};border-radius:20px;color:black;padding:5px;">{% if task.status %}{{ task.status.value }}{% else %}-{% endif %}</p>
+                            </div>
                             <div class="task-actions">
-                                <i class="fa-regular fa-star" style="color:{{task.priority.color}};"></i>
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <a href="{% url "task-detail" task.object_id %}"><i class="fa-regular fa-eye"></i></a>
+                                <a href="{% url "task-update" task.object_id %}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="#" onclick="confirmDelete(event, `{{task.object_id}}`)"><i class="fa-solid fa-trash-can"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <form id="delete-task-form-{{task.object_id}}" method="POST" action="{% url 'task-delete' task.object_id %}" style="display:none;">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
             {% endfor %}
         </div>
     </div>
-    <div class="right-side-bar">
-        <div class="user-section">
-            <h4>Hi, {{ user.first_name }} {{ user.last_name }}!</h4>
+    <div class="right-side-bar" style="display:none;">
+        <div id="user-close-icon" style="position:fixed;top:20px;right:10px;">
+            <i class="fa-solid fa-xmark fa-fade fa-lg" style="color: #B197FC;"></i>
         </div>
-        <div class="task-status">
-            
+        <div class="user-taskstatus-section">
+            <div class="user-section">
+                <img src="{{ user.profile_pic.url }}" alt="pic" style="width:30px;height:30px;object-fit:cover;border-radius:50%;">
+                <h4>Hi, {{ user.full_name }}!</h4>
+            </div>
+            <div class="task-status" style="display:flex;flex-direction:row;justify-content:space-between;align-items:center">
+                <p>Tasks</p>
+                <p>{{user_completed_task_count}}/{{user_total_task_count}}</p>
+            </div>
+            <input type="range" disabled min="0" max="{{user_total_task_count}}" value="{{user_completed_task_count}}" style="background-color:#7650b3;width:100%">
         </div>
-        <button class="logout-button"><a href="{% url "logout-view" %}">Logout</a></button>
+        <button class="logout-button"><a href="{% url "logout-view" %}" style="text-decoration:none;">Logout</a></button>
     </div>
 
     {% comment %} scripts {% endcomment %}
@@ -129,6 +154,25 @@
                     }
                 });
             });
+        });
+
+        function confirmDelete(event, task_object_id) {
+            event.preventDefault();
+            if (window.confirm("Are you sure you want to delete the task?")) {
+                document.getElementById(`delete-task-form-${task_object_id}`).submit();
+            }
+        }
+        const user_avatar = document.getElementById("user-avatar");
+        user_avatar.addEventListener('click', function() {
+            const right_side_bar = document.querySelector('.right-side-bar')
+            right_side_bar.style.display = "flex";
+            user_avatar.style.display = "none";
+        });
+        const user_close_icon = document.getElementById("user-close-icon");
+        user_close_icon.addEventListener('click', function() {
+            const right_side_bar = document.querySelector('.right-side-bar')
+            right_side_bar.style.display = "none";
+            user_avatar.style.display = "";
         });
     </script>
 {% endblock %}

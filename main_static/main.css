@@ -9,6 +9,10 @@ html, body {
     margin: 0;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 .normal-button {
     background-color: #5b21b6;
     color: white;
@@ -46,7 +50,8 @@ html, body {
 .toast-container {
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 9999;
 }
 .toast {

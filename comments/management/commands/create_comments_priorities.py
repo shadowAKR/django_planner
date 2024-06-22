@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 VALUES = ["Low", "Medium", "High", "Critical"]
 ORDER = [1, 2, 3, 4]
 
-COLOR = ["#66BB66", "#f9b859", "#f27e3a", "#e53535"]
+COLOR = ["#C8E4B2", "#9ED2BE", "#7EAA92", "#FFD9B7"]
 
 
 class Command(BaseCommand):

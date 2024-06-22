@@ -14,4 +14,5 @@ class Comment(GenericFields):
         Dropdown, null=True, blank=True, related_name="%(app_label)s_%(class)s_priority",
         on_delete=models.SET_NULL
     )
+    viewed_users_ids = models.JSONField(default=[])
     resolved = models.BooleanField(blank=True, null=True)

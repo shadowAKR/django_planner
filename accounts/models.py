@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from management.models import GenericFields
-
+from .functions import generate_pastel_hex
 # Create your models here.
 
 
@@ -18,6 +18,11 @@ class User(AbstractUser, GenericFields):
     team = models.ForeignKey(Teams, on_delete=models.CASCADE, blank=True, null=True)
     designation = models.CharField(max_length=250, blank=True, null=True)
     full_name = models.CharField(max_length=300, blank=True)
+    fav_color = models.CharField(max_length=10, blank=True, null=True)
+    profile_pic = models.ImageField(
+        upload_to="profile_pic", default="profile_pic/default_profile_pic.png",
+        blank=True
+        )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -29,4 +34,5 @@ def plan_post_save(sender, instance, created, **kwargs):
     """
     if not instance.full_name:
         instance.full_name = f"{instance.first_name} {instance.last_name}".strip()
+        instance.fav_color = generate_pastel_hex()
         instance.save(update_fields=["full_name"])
