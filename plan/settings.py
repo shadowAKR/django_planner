@@ -41,12 +41,21 @@ INSTALLED_APPS = [
     # installed apps
     "fontawesomefree",
     "django_extensions",
+    "django_browser_reload",
+    "tailwind",
+    "theme",
     # apps
     "accounts",
     "management",
     "safe_delete",
     "tasks",
     "comments",
+]
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 MIDDLEWARE = [
@@ -58,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "management.middleware.LoginRequiredMiddleware"
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "plan.urls"
@@ -86,11 +96,13 @@ WSGI_APPLICATION = "plan.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "plan_db",
-        "USER": "root",
-        "PASSWORD": "beinex@app",
-        "HOST": "localhost",
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # "ENGINE": "django.db.backends.mysql",
+        # "NAME": "plan_db",
+        # "USER": "root",
+        # "PASSWORD": "beinex@app",
+        # "HOST": "localhost",
     }
 }
 
@@ -148,56 +160,56 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 LOGGER_FILE_PATH = "./logs/app.log"
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": True,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
-    "formatters": {
-        "default": {
-            "format": "%(asctime)s [%(levelname)s] %(name)s %(thread)d %(filename)s %(funcName)s %(lineno)d: %(message)s",
-            "datefmt": "%a, %d %b %Y %H:%M:%S %z",
-        },
-    },
-    "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        },
-        "file": {
-            "level": "INFO",
-            "class": "logging.handlers.TimedRotatingFileHandler",
-            "when": "midnight",
-            "filename": LOGGER_FILE_PATH,
-            "formatter": "default",
-        },
-        "console": {"class": "logging.StreamHandler"},
-    },
-    "loggers": {
-        "django.request": {
-            "handlers": ["file"],
-            "level": "INFO",
-            "propagate": True,
-        },
-        "uvicorn.error": {
-            "handlers": ["file"],
-            "level": "ERROR",
-            "propagate": True,
-        },
-        "": {
-            "handlers": ["file"],
-            "level": "INFO",
-            # 'propagate': True,
-            "propagate": False,
-        },
-        'daphne': {
-            'handlers': [
-                'console',
-            ],
-            'level': 'DEBUG'
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": True,
+#     "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+#     "formatters": {
+#         "default": {
+#             "format": "%(asctime)s [%(levelname)s] %(name)s %(thread)d %(filename)s %(funcName)s %(lineno)d: %(message)s",
+#             "datefmt": "%a, %d %b %Y %H:%M:%S %z",
+#         },
+#     },
+#     "handlers": {
+#         "mail_admins": {
+#             "level": "ERROR",
+#             "filters": ["require_debug_false"],
+#             "class": "django.utils.log.AdminEmailHandler",
+#         },
+#         "file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.TimedRotatingFileHandler",
+#             "when": "midnight",
+#             "filename": LOGGER_FILE_PATH,
+#             "formatter": "default",
+#         },
+#         "console": {"class": "logging.StreamHandler"},
+#     },
+#     "loggers": {
+#         "django.request": {
+#             "handlers": ["file"],
+#             "level": "INFO",
+#             "propagate": True,
+#         },
+#         "uvicorn.error": {
+#             "handlers": ["file"],
+#             "level": "ERROR",
+#             "propagate": True,
+#         },
+#         "": {
+#             "handlers": ["file"],
+#             "level": "INFO",
+#             # 'propagate': True,
+#             "propagate": False,
+#         },
+#         'daphne': {
+#             'handlers': [
+#                 'console',
+#             ],
+#             'level': 'DEBUG'
+#         },
+#     },
+# }
 
 PUBLIC_URLS = [
     "/accounts/login/",
