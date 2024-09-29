@@ -5,7 +5,7 @@
 
 {% block body %}
 <div class="w-dvw h-dvh flex flex-col justify-center align-middle">
-    <div class="container mx-auto w-96 p-4 border border-violet-500 rounded-lg bg-gray-900 shadow-lg">
+    <div class="container mx-auto w-96 p-4 border border-violet-500 rounded-lg bg-gray-900 shadow-2xl">
         <form method="POST" onsubmit="accounts/login/">
             {% csrf_token %}
             <div class="flex flex-col p-2 m-2">

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "theme",
     # apps
     "accounts",
+    "learn",
     "management",
     "safe_delete",
 ]
