@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en-us">
+{% load static tailwind_tags %}
+<html lang="en-us" class="bg-gray-800 font-sans font-normal text-white">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +11,12 @@
         <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
         <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
         <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'main.css' %}">
+        {% tailwind_css %}
+        {% comment %} <link rel="stylesheet" href="{% static 'main.css' %}"> {% endcomment %}
         {% block stylesheet %}
         {% endblock %}
     </head>
-    <body>
+    <body class="h-screen w-screen">
         <div class="toast-container">
             {% if messages %}
                 {% for message in messages %}
