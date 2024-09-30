@@ -133,6 +133,8 @@ AUTH_USER_MODEL = "accounts.User"
 
 LANGUAGE_CODE = "en-us"
 
+AI_SECRET = "AIzaSyCnTgqcFuciHAUHEUxP5T8sD3B8_-hO0nk"
+
 TIME_ZONE = "UTC"
 
 USE_I18N = True

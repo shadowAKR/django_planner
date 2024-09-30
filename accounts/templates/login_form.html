@@ -9,7 +9,11 @@
         <form method="POST" onsubmit="accounts/login/">
             {% csrf_token %}
             <div class="flex flex-col p-2 m-2">
+                <div class="flex flex-row justify-center">
+                    <img src={% static "images/learn-assisst-logo.png" %} alt="logo" width="50px" height="50px">
+                </div>
                 <h1 class="flex flex-row justify-center font-bold">Welcome back!</h1>
+                <p class="flex flex-row justify-center font-thin text-gray-300">Your AI based learning assisstant missed you</p>
                 <div class="w-full my-1 py-1">
                     <label for="email" 
                         class="text-sm">
@@ -23,14 +27,14 @@
                         class="text-sm">
                         Password
                     </label>
-                    <input type="password" name="password" required id="password" 
+                    <input type="password" name="password" required autofocus id="password" 
                         class="w-full text-sm bg-transparent border border-gray-300 rounded-lg">
                 </div>
                 <div class="flex flex-row justify-center my-1 py-1">
-                    <button class="bg-sky-500 hover:bg-sky-700 px-5 py-1 border border-gray-500 rounded-md" type="submit" value="Login">Login</button>
+                    <button class="bg-yellow-500 text-black hover:bg-yellow-200 px-5 py-1 border border-gray-500 rounded-md" type="submit" value="Login">Login</button>
                 </div>
                 <div>
-                    <p class="flex flex-row justify-center ">Don't have an account?<a href="/accounts/register/" class="text-blue-600 px-1">Register</a></p>
+                    <p class="flex flex-row justify-center ">New to Professor.AI?<a href="/accounts/register/" class="text-blue-600 px-1">Register</a></p>
                 </div>
             </div>
         </form>

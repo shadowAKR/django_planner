@@ -9,29 +9,33 @@
         <form method="POST" onsubmit="accounts/login/">
             {% csrf_token %}
             <div class="flex flex-col p-2 m-2">
-                <h1 class="flex flex-row justify-center font-bold">Welcome</h1>
+                <div class="flex flex-row justify-center">
+                    <img src={% static "images/learn-assisst-logo.png" %} alt="logo" width="50px" height="50px">
+                </div>
+                <h1 class="flex flex-row justify-center font-bold">Welcome!</h1>
+                <p class="flex flex-row justify-center font-thin text-gray-300">Your AI based learning assisstant is waiting...</p>
                 <div class="w-full my-1 py-1">
-                    <label for="email" 
+                    <label for="first_name" 
                         class="text-sm">
                         First name
                     </label>
-                    <input type="email" name="email" required autofocus id="email"
+                    <input type="text" name="first_name" required autofocus id="first_name"
                         class="w-full text-sm bg-transparent border border-gray-300 rounded-lg">
                 </div>
                 <div class="w-full my-1 py-1">
-                    <label for="email" 
+                    <label for="last_name" 
                         class="text-sm">
                         Last name
                     </label>
-                    <input type="email" name="email" required autofocus id="email"
+                    <input type="text" name="last_name" required autofocus id="last_name"
                         class="w-full text-sm bg-transparent border border-gray-300 rounded-lg">
                 </div>
                 <div class="w-full my-1 py-1">
-                    <label for="email" 
+                    <label for="username" 
                         class="text-sm">
                         Username
                     </label>
-                    <input type="email" name="email" required autofocus id="email"
+                    <input type="text" name="username" required autofocus id="username"
                         class="w-full text-sm bg-transparent border border-gray-300 rounded-lg">
                 </div>
                 <div class="w-full my-1 py-1">
@@ -47,14 +51,14 @@
                         class="text-sm">
                         Password
                     </label>
-                    <input type="password" name="password" required id="password" 
+                    <input type="password" name="password" required autofocus id="password" 
                         class="w-full text-sm bg-transparent border border-gray-300 rounded-lg">
                 </div>
                 <div class="flex flex-row justify-center my-1 py-1">
-                    <button class="bg-sky-500 hover:bg-sky-700 px-5 py-1 border border-gray-500 rounded-md" type="submit" value="Login">Register</button>
+                    <button class="bg-yellow-500 text-black hover:bg-yellow-200 px-5 py-1 border border-gray-500 rounded-md" type="submit" value="Login">Register</button>
                 </div>
                 <div>
-                    <p class="flex flex-row justify-center ">Already have an account?<a href="/accounts/login/" class="text-blue-600 px-1">Login</a></p>
+                    <p class="flex flex-row justify-center ">Already on Professor.AI?<a href="/accounts/login/" class="text-blue-600 px-1">Login</a></p>
                 </div>
             </div>
         </form>
