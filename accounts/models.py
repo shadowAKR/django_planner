@@ -12,9 +12,11 @@ class Teams(GenericFields):
     name = models.CharField(max_length=250)
     color = models.CharField(max_length=10)
 
-
 class User(AbstractUser, GenericFields):
+    """user model"""
     email = models.EmailField(unique=True)
+    dob = models.DateField(blank=True, null=True)
+    school = models.TextField(blank=True, null=True)
     team = models.ForeignKey(Teams, on_delete=models.CASCADE, blank=True, null=True)
     designation = models.CharField(max_length=250, blank=True, null=True)
     full_name = models.CharField(max_length=300, blank=True)

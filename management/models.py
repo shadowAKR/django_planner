@@ -7,7 +7,7 @@ from safe_delete.models import SoftDeletionModel
 
 
 class GenericFields(SoftDeletionModel):
-    """Audit fields"""
+    """Common fields"""
 
     object_id = models.UUIDField(
         unique=True,
@@ -36,11 +36,12 @@ class GenericFields(SoftDeletionModel):
 
 
 class Dropdown(GenericFields):
+    """Dropdown model"""
     value = models.CharField(max_length=100, db_index=True)
     color = models.CharField(max_length=10)
     order = models.PositiveIntegerField(null=True, default=0)
-    model_name = models.CharField(max_length=100)
-    field = models.CharField(max_length=100)
+    model_name = models.CharField(max_length=100, null=True, blank=True)
+    field = models.CharField(max_length=100, null=True, blank=True)
     
     def __str__(self):
         return f"{self.value} | {self.field} | {self.model_name}"

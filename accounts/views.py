@@ -62,7 +62,15 @@ class RegisterView(TemplateView):
             return redirect("/accounts/register/")
 
 class LogoutView(View):
+    """logout view"""
 
     def get(self, request):
+        """get method"""
         logout(request)
         return redirect("login-view")
+
+class GetUserInfo(TemplateView):
+    """
+    User information gather view
+    """
+    template_name = "user_info_form.html"
