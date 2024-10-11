@@ -1,10 +1,69 @@
 {% extends "main.html" %}
 {% load static %}
-
-{% block titile %}Home{% endblock %}
-
 {% block main_body %}
-<div>
-    <p>{{response}}</p>
+<div class="flex-grow contents">
+    <div class="block  h-1/2 m-2 border border-gray-950 rounded-md shadow-md">
+        <div class="flex flex-col h-full">
+            <div class="flex flex-row p-2 items-center gap-10 border-b border-b-gray-950">
+                <h5>Your subjects</h5>
+                <input type="text" placeholder="Search..." class="bg-inherit border border-gray-950 rounded-md">
+            </div>
+            <div class="flex flex-row flex-grow p-2 h-full justify-between">
+                <i class="fa-solid fa-chevron-left flex flex-col h-full align-middle justify-center m-2 hover:text-yellow-500 hover:cursor-pointer"></i>
+                {% for subject in your_subjects %}
+                    <div class="flex flex-grow">
+                        <div class="flex flex-col w-96 items-center m-2 bg-gray-950 rounded-md">
+                            <h4 class="h-1/6 m-2 flex items-center align-middle justify-center">{{ subject.name.value }}</h4>
+                            <div class="h-4/6 w-3/4 m-2 p-2 flex align-middle justify-center items-center">
+                                <p class="flex h-3/4 w-full align-middle justify-center items-center bg-orange-500 rounded-t-full font-bold">{{ subject.current_level.value }}<p>
+                            </div>
+                            <div class="h-1/6 flex flex-row w-full justify-between">
+                                <button class="bg-yellow-500 m-2 py-1 px-2 w-36 text-gray-900 hover:bg-yellow-600 rounded-md">Learn</button>
+                                <button class="bg-gray-600 m-2 py-1 px-2 w-36 hover:bg-gray-500 rounded-md">Take assessment</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if not your_subjects %}
+                    <div class="flex flex-col h-full justify-center items-center">
+                        <p class="m-2 text-gray-500">Welcome champ!</p>
+                        <p class="m-2 text-gray-500">You have to start learning a course to display it here...</p>
+                        <p class="m-2 text-gray-500">Improvize your learning with the help of AI...</p>
+                    </div>
+                {% endif %}
+                <i class="fa-solid fa-chevron-right flex flex-col h-full align-middle justify-center m-2 hover:text-yellow-500 hover:cursor-pointer"></i>
+            </div>
+        </div>
+    </div>
+    <div class="block  h-1/2 m-2 border border-gray-950 rounded-md shadow-md">
+        <div class="flex flex-col h-full">
+            <div class="flex flex-row p-2 items-center gap-10 border-b border-b-gray-950">
+                <h5>All subjects</h5>
+                <input type="text" placeholder="Search..." class="bg-inherit border border-gray-950 rounded-md">
+            </div>
+            <div class="overflow-y-auto">
+                {% for subject in all_subjects %}
+                    <div class="flex justify-between items-center m-2 h-24 bg-gray-950 rounded-md">
+                        <div class="m-2 w-1/5">
+                            <p class="text-gray-500">Name</p>
+                            <h4>{{ subject.value }}</h4>
+                        </div>
+                        <div class="m-2 flex-grow overflow-hidden truncate w-4/5">
+                            <p class="text-gray-500">Description</p>
+                            <h4 title={{  subject.description }}>{{ subject.description }}</h4>
+                        </div>
+                        <button class="bg-yellow-500 m-2 py-1 px-2 text-gray-900 hover:bg-yellow-600 rounded-md w-56">Start learning</button>
+                    </div>
+                {% endfor %}
+                {% if not all_subjects %}
+                    <div class="flex flex-col h-full justify-center items-center">
+                        <p class="m-2 text-gray-500">Hey champ! you have finished studying all the subjects that are available for you...</p>
+                        <p class="m-2 text-gray-500">Feel free to give us a review...</p>
+                        <p class="m-2 text-gray-500">Thank you!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
