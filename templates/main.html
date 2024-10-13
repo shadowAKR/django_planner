@@ -15,6 +15,9 @@
                     <a href="/" class="hover:border-b  px-3 py-2 text-sm font-medium {% if view == "home" %}border-b border-yellow-500{% endif %}">
                         Home
                     </a>
+                    <a href="{% url 'all-subjects' %}" class="hover:border-b  px-3 py-2 text-sm font-medium {% if view == "subjects" %}border-b border-yellow-500{% endif %}">
+                        Subjects
+                    </a>
                     <a href="#" class="hover:border-b px-3 py-2 text-sm font-medium {% if view == "learn" %}border-b border-yellow-500{% endif %}">
                         Learn
                     </a>

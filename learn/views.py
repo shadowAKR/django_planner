@@ -2,7 +2,7 @@ import logging
 import google.generativeai as genai
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 from django.conf import settings
 
 from .models import Subjects
@@ -13,24 +13,41 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 
 
-class LearnDashboard(TemplateView):
-    template_name = "learn_dashboard.html"
-    
-    def get(self,  request, *args, **kwargs):
-        """get method"""
-        # genai.configure(api_key=settings.AI_SECRET)
-        # model = genai.GenerativeModel("gemini-1.5-flash")
-        # response = model.generate_content("Write a story about a magic backpack.")
-        your_subjects = Subjects.objects.filter(user=request.user)
-        all_subjects = Dropdown.objects.filter(model_name="subjects", field="name")
-        
-        return render(
-            request,
-            template_name=self.template_name,
-            context={
-                "your_subjects": your_subjects,
-                "all_subjects": all_subjects,
-                "view": "home"
-            }
-        )
+class UserSubjects(ListView):
+    model = Subjects
+    context_object_name = "your_subjects"
+    template_name = "home.html"
+    paginate_by = 10
 
+    def get_queryset(self):
+        queryset = Subjects.objects.filter(user=self.request.user)
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(name__value__icontains=query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET.get("q")
+        context["view"] = "home"
+        return context
+
+
+class AllSubjects(ListView):
+    model = Dropdown
+    context_object_name = "all_subjects"
+    template_name = "learn.html"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Dropdown.objects.filter(model_name="subjects", field="name")
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(value__icontains=query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET.get("q")
+        context["view"] = "subjects"
+        return context
