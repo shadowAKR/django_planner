@@ -18,14 +18,13 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     """command runner class"""
 
-    help = "Create or update subjects dropdowns"
+    help = "Create or update course dropdowns"
 
     values = [
-        "Physics",
-        "Chemistry",
-        "Biology",
-        "Social science",
-        "Life skills",
+        "Python",
+        "Java",
+        "JavaScript",
+        "TypeScript",
     ]
 
     def handle(self, *args, **options):
@@ -33,8 +32,8 @@ class Command(BaseCommand):
             for order, value in enumerate(self.values, start=1):
                 genai.configure(api_key=settings.AI_SECRET)
                 genai_model = genai.GenerativeModel("gemini-1.5-flash")
-                generate_content = genai_model.generate_content(f"A description of {value} subject for students, within 200 words")
-                drop_obj = Dropdown.objects.filter(field="name", model_name="subjects", value=value).first()
+                generate_content = genai_model.generate_content(f"A description of {value} course, within 200 words")
+                drop_obj = Dropdown.objects.filter(field="name", model_name="courses", value=value).first()
                 if drop_obj:
                     drop_obj.order = order
                     drop_obj.description = generate_content.text
@@ -46,7 +45,7 @@ class Command(BaseCommand):
                         description=generate_content.text,
                         order=order,
                         field="name",
-                        model_name="subjects",
+                        model_name="courses",
                         color=generate_random_color(),
                     )
             return "success"

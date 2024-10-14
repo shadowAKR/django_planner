@@ -1,2 +1,2 @@
 create_and_update_levels
-create_and_update_common_subjects
+create_and_update_common_courses

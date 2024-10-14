@@ -9,15 +9,13 @@
                 <input type="text" placeholder="Search..." class="bg-inherit border border-gray-950 rounded-md">
             </div>
             <div class="overflow-y-auto">
-                {% for all_course in all_courses %}
+                {% for all_subject in all_courses %}
                     <div class="flex justify-between items-center m-2 h-24 bg-gray-950 rounded-md">
                         <div class="m-2 w-1/5">
-                            <p class="text-gray-500">Name</p>
-                            <h4>{{ all_course.value }}</h4>
+                            <h4>{{ all_subject.value }}</h4>
                         </div>
-                        <div class="m-2 flex-grow overflow-clip w-4/5">
-                            <p class="text-gray-500">Description</p>
-                            <p title={{ all_course.description }}>{{ all_course.description | truncatechars:350 }}</p>
+                        <div class="hidden md:flex m-2 flex-grow overflow-clip w-4/5">
+                            <p title={{ all_subject.description }}>{{ all_subject.description | truncatechars:350 }}</p>
                         </div>
                         <button class="bg-yellow-500 m-2 py-1 px-2 text-gray-900 hover:bg-yellow-600 rounded-md w-56">Start learning</button>
                     </div>

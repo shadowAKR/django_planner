@@ -5,8 +5,8 @@ from management.models import GenericFields, Dropdown
 # Create your models here.
 
 
-class Subjects(GenericFields):
-    """Subjects model"""
+class Courses(GenericFields):
+    """Courses model"""
 
     name = models.ForeignKey(
         Dropdown,
@@ -83,7 +83,7 @@ class Assessments(GenericFields):
         blank=True,
     )
     subject = models.ForeignKey(
-        Subjects,
+        Courses,
         on_delete=models.SET_NULL,
         related_name="%(app_label)s_%(class)s_subject",
         null=True,

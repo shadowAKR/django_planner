@@ -19,16 +19,31 @@
         {% endblock %}
     </head>
     <body class="h-screen w-screen flex flex-col">
-        <div class="toast-container">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="toast {{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div id="toaster" class="
+                fixed top-4 right-4 text-gray-900 py-2 px-4 rounded shadow-lg
+                {% if message.tags == 'info' %}bg-yellow-500
+                {% elif message.tags == 'success' %}bg-green-500
+                {% elif message.tags == 'error' %}bg-red-500
+                {% elif message.tags == 'warning' %}bg-orange-500
+                {% endif %}
+                ">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         {% block body %}
         {% endblock %}
+
+        <script>
+            // Fade out the toaster after 3 seconds
+            setTimeout(function() {
+                const toaster = document.getElementById("toaster");
+                if (toaster) {
+                    toaster.classList.add("opacity-0");
+                }
+            }, 3000);
+        </script>
     </body>
 </html>

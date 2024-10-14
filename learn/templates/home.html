@@ -5,17 +5,17 @@
     <div class="block h-full m-2 border border-gray-950 rounded-md shadow-md">
         <div class="flex flex-col h-full">
             <div class="flex flex-row p-2 items-center gap-10 border-b border-b-gray-950">
-                <h5>Your subjects</h5>
+                <h5>Your courses</h5>
                 <input type="text" placeholder="Search..." class="bg-inherit border border-gray-950 rounded-md">
             </div>
             <div class="flex flex-row flex-grow p-2 h-full justify-between">
                 <i class="fa-solid fa-chevron-left flex flex-col h-full align-middle justify-center m-2 hover:text-yellow-500 hover:cursor-pointer"></i>
-                {% for subject in your_subjects %}
+                {% for course in your_courses %}
                     <div class="flex flex-grow">
                         <div class="flex flex-col w-96 items-center m-2 bg-gray-950 rounded-md">
-                            <h4 class="h-1/6 m-2 flex items-center align-middle justify-center">{{ subject.name.value }}</h4>
+                            <h4 class="h-1/6 m-2 flex items-center align-middle justify-center">{{ course.name.value }}</h4>
                             <div class="h-4/6 w-3/4 m-2 p-2 flex align-middle justify-center items-center">
-                                <p class="flex h-3/4 w-full align-middle justify-center items-center bg-orange-500 rounded-t-full font-bold">{{ subject.current_level.value }}<p>
+                                <p class="flex h-3/4 w-full align-middle justify-center items-center bg-orange-500 rounded-t-full font-bold">{{ course.current_level.value }}<p>
                             </div>
                             <div class="h-1/6 flex flex-row w-full justify-between">
                                 <button class="bg-yellow-500 m-2 py-1 px-2 w-36 text-gray-900 hover:bg-yellow-600 rounded-md">Learn</button>
@@ -26,9 +26,9 @@
                 {% empty %}
                     <div class="flex flex-col h-full justify-center items-center">
                         <p class="m-2 text-gray-500">Welcome champ!</p>
-                        <p class="m-2 text-gray-500">You have to start learning a subject to display it here...</p>
+                        <p class="m-2 text-gray-500">You have to start learning a course to display it here...</p>
                         <p class="m-2 text-gray-500">Improvize your learning with the help of AI...</p>
-                        <a href="{% url 'all-subjects' %}" class="bg-yellow-500 hover:bg-yellow-600 rounded-md p-2 text-gray-950">Start learning...</a>
+                        <a href="{% url 'all-courses' %}" class="bg-yellow-500 hover:bg-yellow-600 rounded-md p-2 text-gray-950">Start learning...</a>
                     </div>
                 {% endfor %}
                 <i class="fa-solid fa-chevron-right flex flex-col h-full align-middle justify-center m-2 hover:text-yellow-500 hover:cursor-pointer"></i>

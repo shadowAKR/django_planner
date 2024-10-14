@@ -15,8 +15,8 @@
                     <a href="/" class="hover:border-b  px-3 py-2 text-sm font-medium {% if view == "home" %}border-b border-yellow-500{% endif %}">
                         Home
                     </a>
-                    <a href="{% url 'all-subjects' %}" class="hover:border-b  px-3 py-2 text-sm font-medium {% if view == "subjects" %}border-b border-yellow-500{% endif %}">
-                        Subjects
+                    <a href="{% url 'all-courses' %}" class="hover:border-b  px-3 py-2 text-sm font-medium {% if view == "courses" %}border-b border-yellow-500{% endif %}">
+                        Courses
                     </a>
                     <a href="#" class="hover:border-b px-3 py-2 text-sm font-medium {% if view == "learn" %}border-b border-yellow-500{% endif %}">
                         Learn
@@ -28,7 +28,7 @@
             </div>
             <!-- Right Section: Buttons or Menu -->
             <div class="flex items-center space-x-4">
-                <a href="accounts/logout/" class="text-sm font-medium hover:bg-red-500 px-4 py-2 rounded-md">
+                <a href="{% url 'logout' %}" class="text-sm font-medium hover:bg-red-500 px-4 py-2 rounded-md">
                     Logout
                 </a>
             </div>

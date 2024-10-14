@@ -20,7 +20,7 @@ class LoginView(TemplateView):
         if user:
             login(request, user)
             return redirect("/")
-        messages.warning(request, "Invalid credentials!")
+        messages.info(request, "Invalid credentials!")
         return render(request, template_name="login_form.html")
 
 
