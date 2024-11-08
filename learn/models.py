@@ -39,6 +39,25 @@ class Courses(GenericFields):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
+class Learn(GenericFields):
+    """Learn model"""
+    topic = models.CharField(max_length=300, db_index=True)
+    content = models.TextField(db_index=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name="%(app_label)s_%(class)s_user",
+        null=True,
+        blank=True,
+    )
+    course = models.ForeignKey(
+        Courses,
+        on_delete=models.SET_NULL,
+        related_name="%(app_label)s_%(class)s_course",
+        null=True,
+        blank=True,
+    )
+    verified = models.BooleanField(default=False)
 
 class Question(GenericFields):
     """Question model"""
@@ -58,11 +77,19 @@ class Question(GenericFields):
     user_answer = models.TextField(blank=True, null=True, db_index=True)
     correct = models.BooleanField(blank=True, default=False, db_index=True)
     ai_response = models.TextField(blank=True, null=True)
+    learn_content = models.ForeignKey(
+        Learn,
+        on_delete=models.SET_NULL,
+        related_name="%(app_label)s_%(class)s_learn_content",
+        null=True,
+        blank=True,
+    )
 
 
 class Assessments(GenericFields):
     """Assessment model"""
 
+    title = models.CharField(max_length=250, blank=True, null=True, db_index=True)
     attained_score = models.PositiveIntegerField(blank=True, null=True, db_index=True)
     max_score = models.PositiveIntegerField(blank=True, null=True, db_index=True)
     questions = models.ManyToManyField(

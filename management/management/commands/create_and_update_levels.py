@@ -18,10 +18,13 @@ class Command(BaseCommand):
     help = "Create or update level dropdowns"
     
     values = [
+        "Novice",
         "Beginnner",
         "Intermediate",
         "Advanced",
         "Expert",
+        "Master",
+        "Legendary",
     ]
 
     def handle(self, *args, **options):

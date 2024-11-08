@@ -3,32 +3,18 @@
 {% block main_body %}
 <div class="flex-grow contents">
     <div class="block  h-full m-2 border border-gray-950 rounded-md shadow-md">
-        <div class="flex flex-col h-full">
-            <div class="flex flex-row p-2 items-center gap-10 border-b border-b-gray-950">
-                <h5>All courses</h5>
-                <input type="text" placeholder="Search..." class="bg-inherit border border-gray-950 rounded-md">
-            </div>
-            <div class="overflow-y-auto">
-                {% for all_course in all_courses %}
-                    <div class="flex justify-between items-center m-2 h-24 bg-gray-950 rounded-md">
-                        <div class="m-2 w-1/5">
-                            <p class="text-gray-500">Name</p>
-                            <h4>{{ all_course.value }}</h4>
-                        </div>
-                        <div class="m-2 flex-grow overflow-clip w-4/5">
-                            <p class="text-gray-500">Description</p>
-                            <p title={{ all_course.description }}>{{ all_course.description | truncatechars:350 }}</p>
-                        </div>
-                        <button class="bg-yellow-500 m-2 py-1 px-2 text-gray-900 hover:bg-yellow-600 rounded-md w-56">Start learning</button>
-                    </div>
-                {% empty %}
-                    <div class="flex flex-col h-full justify-center items-center">
-                        <p class="m-2 text-gray-500">Hey champ! you have finished studying all the courses that are available for you...</p>
-                        <p class="m-2 text-gray-500">Feel free to give us a review...</p>
-                        <p class="m-2 text-gray-500">Thank you!</p>
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="flex flex-row justify-between border-b border-gray-950">
+            <h3>{{ course.name.value }}</h3>
+            <p><i class="fa-regular fa-circle-info"></i> Take assessments to level up your knowledge. If you don’t know to answer this question, you can learn the concept and come back to answer this question later.</p>
+            <a href="#" class="bg-yellow-500 m-2 py-1 px-2 text-gray-900 hover:bg-yellow-600 rounded-md w-56">Take assessment</a>
+        </div>
+        <div class="flex flex-col h-full w-full m-2 p-2 border-b border-gray-950 overflow-scroll">
+            {% comment %} <h2 class="flex flex-row w-full align-middle justify-center">{{ topic|safe }}</h2> {% endcomment %}
+            <div class="flex flex-col flex-grow align-middle justify-center items-center px-10 py-5">{{ content|safe }}</div>
+        </div>
+        <div class="flex flex-row justify-between">
+            <p>Level: {{ course.current_level.value }}</p>
+            <a href="#" class="bg-yellow-500 m-2 py-1 px-2 text-gray-900 hover:bg-yellow-600 rounded-md w-56">Next</a>
         </div>
     </div>
 </div>
